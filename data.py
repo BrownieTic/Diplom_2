@@ -36,3 +36,7 @@ class Ingredients:
         "calories": 14,
         "price": 80
         }
+
+        list_id_ingredients = [INGREDIENT_BUN['_id'], INGREDIENT_MAIN['_id'], INGREDIENT_SAUCE['_id']]
+        ingredient_id_incorrect = ['643d69a5c3']
+        

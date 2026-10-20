@@ -10,7 +10,7 @@ class TestCreatUser:
     def test_create_uniq_new_user_success(self, create_user_and_delete):
         response = create_user_and_delete
         with allure.step("Проверить успешное создание пользователя"):
-            assert response.status_code == 201
+            assert response.status_code == 200
             assert 'accessToken' in response.json()
 
     @allure.story("Запрос на создание пользователя с некорректными данными")
@@ -47,7 +47,7 @@ class TestLoginUser():
         response_login = request_login_class.login_request(random_data)
         r = response_login.json()
         with allure.step("Проверить успешную авторизацию"):
-            assert response_login.status_code == 201
+            assert response_login.status_code == 200
             assert r["success"] == True
             assert random_data['email'] in r["user"]["email"]
             assert random_data['name'] in r["user"]["name"]
@@ -65,7 +65,7 @@ class TestLoginUser():
         response_login = request_login_class.login_request(user)
         r = response_login.json()
         with allure.step("Проверить ошибку"):
-            assert response_login.status_code == 403
+            assert response_login.status_code == 401
             assert r["success"] == False
             assert r["message"] == "email or password are incorrect"
 

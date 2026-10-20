@@ -7,7 +7,6 @@ from api.user_api import UserLoginAPI
 from api.order_api import OrderAPI
 
 from data import UserData as data
-from data import Ingredients
 
 @pytest.fixture(scope="function")
 def random_data():
@@ -57,12 +56,7 @@ def request_order_class():
 @pytest.fixture(scope="function")
 def login_and_delete(request_create_class, request_login_class, random_data):
     response_create = request_create_class.create_user_request(random_data)
+    token = response_create.json()["accessToken"]
     response_login = request_login_class.login_request(random_data)
-    token = response_login.json()["accessToken"]
     yield token
     request_create_class.delete_user_request(token)
-
-@pytest.fixture(scope="function")
-def list_id_ingredients():
-    list = [Ingredients.INGREDIENT_BUN['_id'], Ingredients.INGREDIENT_MAIN['_id'], Ingredients.INGREDIENT_SAUCE['_id']]
-    return list
