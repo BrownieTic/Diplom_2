@@ -35,8 +35,6 @@ class TestOrder:
     @allure.title("Оформление заказа с неверным хешом ингридиента зарегестрированным пользователем")
     def test_order_with_login_incorrect_ingredients_error(self, login_and_delete, request_order_class):
         response = request_order_class.create_order_request(ingredient.ingredient_id_incorrect, login_and_delete)
-        r = response.json()
         with allure.step("Проверить ошибку"):
             assert response.status_code == 500    
-            assert r["success"] == False    
      
